@@ -112,12 +112,12 @@ mod test {
 
     #[test]
     fn test_read_vimplugindir_var() {
-        assert_eq!(read_vimplugindir_var(), "test");
+        assert_eq!(read_vimplugindir_var(), "/home/runner");
     }
 
     #[test]
     fn test_read_nvimplugindir_var() {
-        assert_eq!(read_nvimplugindir_var(), "test2");
+        assert_eq!(read_nvimplugindir_var(), "/home/runner");
     }
 
     #[test]
@@ -131,15 +131,15 @@ mod test {
     fn test_replace_dir_string() {
         assert_eq!(
             replace_dir_string("~/test".to_string()),
-            "/home/stanaka/test"
+            "/home/runner/test"
         );
         assert_eq!(
             replace_dir_string("$HOME/test".to_string()),
-            "/home/stanaka/test"
+            "/home/runner/test"
         );
         assert_eq!(
-            replace_dir_string("/home/stanaka/test".to_string()),
-            "/home/stanaka/test"
+            replace_dir_string("/home/runner/test".to_string()),
+            "/home/runner/test"
         );
     }
 
@@ -147,10 +147,10 @@ mod test {
     fn test_create_plugin_dir_or_file_name() {
         assert_eq!(
             create_plugin_dir_or_file_name(
-                "/home/stanaka/test".to_string(),
+                "/home/runner/test".to_string(),
                 "test-tool".to_string()
             ),
-            "/home/stanaka/test/test-tool"
+            "/home/runner/test/test-tool"
         );
     }
 
