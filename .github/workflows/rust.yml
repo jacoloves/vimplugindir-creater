@@ -21,4 +21,5 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
       env:
-        VIMPLUGINDIR: "~/"
+        VIMPLUGINDIR: "/home/runner"
+        NVIMPLUGINDIR: "/home/runner"
