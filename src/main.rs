@@ -22,13 +22,10 @@ fn execute(plugin_name: String) {
         if !(vim_plugin_dir.is_empty()) {
             let root_plugin_dir =
                 create_plugin_dir_or_file_name(vim_plugin_dir, plugin_name.clone());
-            let judge_flg: bool = match fs::create_dir(root_plugin_dir.clone()) {
-                Ok(_) => true,
-                Err(_) => false,
-            };
+            let judge_flg: bool = fs::create_dir(root_plugin_dir.clone()).is_ok();
 
             if judge_flg {
-                println!("{} is created complete", root_plugin_dir.clone());
+                println!("{} is created complete", root_plugin_dir);
                 create_plugin_detail_dir(root_plugin_dir.clone());
                 create_plugin_detail_file(root_plugin_dir);
             } else {
@@ -40,13 +37,10 @@ fn execute(plugin_name: String) {
         /* nvim plugin dir create */
         if !(nvim_plugin_dir.is_empty()) {
             let root_plugin_dir = create_plugin_dir_or_file_name(nvim_plugin_dir, plugin_name);
-            let judge_flg: bool = match fs::create_dir(root_plugin_dir.clone()) {
-                Ok(_) => true,
-                Err(_) => false,
-            };
+            let judge_flg: bool = fs::create_dir(root_plugin_dir.clone()).is_ok();
 
             if judge_flg {
-                println!("{} is created complete", root_plugin_dir.clone());
+                println!("{} is created complete", root_plugin_dir);
                 create_plugin_detail_dir(root_plugin_dir.clone());
                 create_plugin_detail_file(root_plugin_dir);
             } else {

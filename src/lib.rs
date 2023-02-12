@@ -11,9 +11,9 @@ static VIMPLUGINDIR: &str = "VIMPLUGINDIR";
 
 pub fn read_vimplugindir_var() -> String {
     let mut dir: String = String::new();
-    if match env::var(VIMPLUGINDIR) {
-        Ok(_) => true,
-        Err(_) => false,
+    if match env::var(VIMPLUGINDIR).is_ok() {
+        true => true,
+        false => false,
     } {
         dir = env::var(VIMPLUGINDIR).unwrap();
     }
@@ -22,9 +22,9 @@ pub fn read_vimplugindir_var() -> String {
 
 pub fn read_nvimplugindir_var() -> String {
     let mut dir: String = String::new();
-    if match env::var(NVIMPLUGINDIR) {
-        Ok(_) => true,
-        Err(_) => false,
+    if match env::var(NVIMPLUGINDIR).is_ok() {
+        true => true,
+        false => false,
     } {
         dir = env::var(NVIMPLUGINDIR).unwrap();
     }
@@ -58,27 +58,27 @@ pub fn replace_dir_string(dirstring: String) -> String {
 }
 
 pub fn create_plugin_dir_or_file_name(dir: String, plugin_name: String) -> String {
-    let plugin_dir: String = dir + &"/".to_string() + &plugin_name;
+    let plugin_dir: String = dir + &String::from("/") + &plugin_name;
     plugin_dir
 }
 
 pub fn create_plugin_detail_dir(dir: String) {
     let autoload_dir: String = create_plugin_dir_or_file_name(dir.clone(), AUTOLOAD.to_string());
     let doc_dir: String = create_plugin_dir_or_file_name(dir.clone(), DOC.to_string());
-    let plugin_dir: String = create_plugin_dir_or_file_name(dir.clone(), PLUGIN.to_string());
+    let plugin_dir: String = create_plugin_dir_or_file_name(dir, PLUGIN.to_string());
 
     match fs::create_dir(autoload_dir.clone()) {
-        Ok(_) => println!("{} is created complete.", autoload_dir.clone()),
+        Ok(_) => println!("{} is created complete.", autoload_dir),
         Err(_) => eprintln!("{} is not created", autoload_dir),
     }
 
     match fs::create_dir(doc_dir.clone()) {
-        Ok(_) => println!("{} is created complete.", doc_dir.clone()),
+        Ok(_) => println!("{} is created complete.", doc_dir),
         Err(_) => eprintln!("{} is not created", doc_dir),
     }
 
     match fs::create_dir(plugin_dir.clone()) {
-        Ok(_) => println!("{} is created complete.", plugin_dir.clone()),
+        Ok(_) => println!("{} is created complete.", plugin_dir),
         Err(_) => eprintln!("{} is not created", plugin_dir),
     }
 }
@@ -86,24 +86,24 @@ pub fn create_plugin_detail_dir(dir: String) {
 pub fn create_plugin_detail_file(dir: String) {
     let autoload_dir: String = create_plugin_dir_or_file_name(dir.clone(), AUTOLOAD.to_string());
     let doc_dir: String = create_plugin_dir_or_file_name(dir.clone(), DOC.to_string());
-    let plugin_dir: String = create_plugin_dir_or_file_name(dir.clone(), PLUGIN.to_string());
+    let plugin_dir: String = create_plugin_dir_or_file_name(dir, PLUGIN.to_string());
 
     let autoload_file: String = create_plugin_dir_or_file_name(autoload_dir, GITKEEP.to_string());
     let doc_file: String = create_plugin_dir_or_file_name(doc_dir, GITKEEP.to_string());
     let plugin_file: String = create_plugin_dir_or_file_name(plugin_dir, GITKEEP.to_string());
 
     match fs::File::create(autoload_file.clone()) {
-        Ok(_) => println!("{} is created complete.", autoload_file.clone()),
+        Ok(_) => println!("{} is created complete.", autoload_file),
         Err(_) => eprintln!("{} is not created", autoload_file),
     }
 
     match fs::File::create(doc_file.clone()) {
-        Ok(_) => println!("{} is created complete.", doc_file.clone()),
+        Ok(_) => println!("{} is created complete.", doc_file),
         Err(_) => eprintln!("{} is not created", doc_file),
     }
 
     match fs::File::create(plugin_file.clone()) {
-        Ok(_) => println!("{} is created complete.", plugin_file.clone()),
+        Ok(_) => println!("{} is created complete.", plugin_file),
         Err(_) => eprintln!("{} is not created", plugin_file),
     }
 }
@@ -128,7 +128,7 @@ mod test {
     fn test_dir_variable_check() {
         let vim_dir: String = read_vimplugindir_var();
         let nvim_dir: String = read_nvimplugindir_var();
-        assert_eq!(dir_variable_check(&vim_dir, &nvim_dir), true);
+        assert!(dir_variable_check(&vim_dir, &nvim_dir));
     }
 
     #[test]
@@ -174,9 +174,9 @@ mod test {
         let plugin_dir: String =
             create_plugin_dir_or_file_name(root_plugin_dir.clone(), PLUGIN.to_string());
 
-        assert_eq!(true, Path::new(&autoload_dir).exists());
-        assert_eq!(true, Path::new(&doc_dir).exists());
-        assert_eq!(true, Path::new(&plugin_dir).exists());
+        assert!(Path::new(&autoload_dir).exists());
+        assert!(Path::new(&doc_dir).exists());
+        assert!(Path::new(&plugin_dir).exists());
 
         fs::remove_dir_all(root_plugin_dir).unwrap();
     }
@@ -204,9 +204,9 @@ mod test {
         let doc_file: String = create_plugin_dir_or_file_name(doc_dir, GITKEEP.to_string());
         let plugin_file: String = create_plugin_dir_or_file_name(plugin_dir, GITKEEP.to_string());
 
-        assert_eq!(true, Path::new(&autoload_file).exists());
-        assert_eq!(true, Path::new(&doc_file).exists());
-        assert_eq!(true, Path::new(&plugin_file).exists());
+        assert!(Path::new(&autoload_file).exists());
+        assert!(Path::new(&doc_file).exists());
+        assert!(Path::new(&plugin_file).exists());
 
         fs::remove_dir_all(root_plugin_dir).unwrap();
     }

@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install tool
-      uses: actions-rs/toolchain@v2
+      uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
         components: runstfmt, clippy
