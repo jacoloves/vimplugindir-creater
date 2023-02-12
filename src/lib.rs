@@ -48,6 +48,10 @@ pub fn replace_dir_string(dirstring: String) -> String {
         let hd = env::var("HOME").unwrap();
         dir = dirstring.replace(&"$HOME".to_string(), "");
         dir = hd + &dir;
+    } else if dirstring.find("$XDG_CONFIG_HOME") != None {
+        let hd = env::var("XDG_CONFIG_HOME").unwrap();
+        dir = dirstring.replace(&"$XDG_CONFIG_HOME".to_string(), "");
+        dir = hd + &dir;
     }
 
     dir
@@ -173,6 +177,8 @@ mod test {
         assert_eq!(true, Path::new(&autoload_dir).exists());
         assert_eq!(true, Path::new(&doc_dir).exists());
         assert_eq!(true, Path::new(&plugin_dir).exists());
+
+        fs::remove_dir_all(root_plugin_dir).unwrap();
     }
 
     #[test]
@@ -201,5 +207,7 @@ mod test {
         assert_eq!(true, Path::new(&autoload_file).exists());
         assert_eq!(true, Path::new(&doc_file).exists());
         assert_eq!(true, Path::new(&plugin_file).exists());
+
+        fs::remove_dir_all(root_plugin_dir).unwrap();
     }
 }
