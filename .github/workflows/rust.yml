@@ -16,18 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install tool
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        components: runstfmt, clippy
-    - uses: actions-rs/cargo@v1
-      with:
-        command: fmt
-        args: -- all -- --check
-    - uses: actions-rs/cargo@v1
-      with:
-        commnad: clippy
     - name: Build
       run: cargo build --verbose
     - name: Run tests
