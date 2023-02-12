@@ -106,7 +106,7 @@ pub fn create_plugin_detail_file(dir: String) {
 
 #[cfg(test)]
 mod test {
-    use std::{fs::create_dir, path::Path};
+    use std::path::Path;
 
     use super::*;
 
@@ -201,12 +201,5 @@ mod test {
         assert_eq!(true, Path::new(&autoload_file).exists());
         assert_eq!(true, Path::new(&doc_file).exists());
         assert_eq!(true, Path::new(&plugin_file).exists());
-    }
-
-    #[test]
-    fn test_home_dir() {
-        let hd = dirs::home_dir().unwrap();
-
-        assert_eq!("/home/stanaka", hd.to_str().unwrap());
     }
 }

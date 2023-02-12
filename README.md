@@ -1,4 +1,5 @@
 # vimplugindir-creater
+![workflow](https://github.com/jacoloves/vimplugindir-creater/actions/workflows/rust.yml/badge.svg) ![license](https://img.shields.io/github/license/jacoloves/vimplugindir-creater)   
 A tool to automatically create vim and nvim plugin directories.
 
 # Requirement
