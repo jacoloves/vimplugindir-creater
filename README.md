@@ -14,7 +14,7 @@ export VIMPLUGINDIR='~/.vim/pack/plugins/start/'
 ```
 or
 ```
-exprot NVIMPLUGINDIR='~/.config/nvim/plugins/'
+export NVIMPLUGINDIR='~/.config/nvim/plugins/'
 ```
 
 Download:
